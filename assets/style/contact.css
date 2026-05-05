@@ -1,0 +1,166 @@
+/* ── Page Layout ── */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 71px);
+    padding: 40px 20px;
+}
+
+.main-content {
+    width: 100%;
+    max-width: 680px;
+}
+
+/* ── Header ── */
+.header {
+    margin-bottom: 40px;
+}
+
+.header h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: #f0f0f0;
+    margin-bottom: 10px;
+}
+
+.header h1 span {
+    color: #bb4343;
+}
+
+.header p {
+    color: #7a7a7a;
+    font-size: 1rem;
+}
+
+/* ── Contact Cards ── */
+.contact-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.contact-card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 18px 22px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 14px;
+    text-decoration: none;
+    transition: all 0.35s cubic-bezier(.4, 0, .2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(187, 67, 67, 0.06), transparent);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    border-radius: 14px;
+}
+
+.contact-card:hover {
+    border-color: rgba(187, 67, 67, 0.4);
+    transform: translateX(6px);
+    background: rgba(187, 67, 67, 0.05);
+}
+
+.contact-card:hover::before {
+    opacity: 1;
+}
+
+/* ── Icon Circle ── */
+.card-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.35s cubic-bezier(.4, 0, .2, 1);
+}
+
+.contact-card:hover .card-icon {
+    transform: scale(1.1);
+}
+
+.card-icon.instagram {
+    background: rgba(193, 53, 132, 0.15);
+    color: #e1306c;
+}
+
+.card-icon.whatsapp {
+    background: rgba(37, 211, 102, 0.12);
+    color: #25d366;
+}
+
+.card-icon.github {
+    background: rgba(200, 200, 200, 0.1);
+    color: #c9c9c9;
+}
+
+.card-icon.email {
+    background: rgba(187, 67, 67, 0.15);
+    color: #bb4343;
+}
+
+/* ── Text Info ── */
+.card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex: 1;
+}
+
+.platform {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #555;
+}
+
+.handle {
+    font-size: 1rem;
+    color: #d4d4d4;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.contact-card:hover .handle {
+    color: #ffffff;
+}
+
+/* ── Arrow Icon ── */
+.card-arrow {
+    color: #444;
+    transition: all 0.35s cubic-bezier(.4, 0, .2, 1);
+    flex-shrink: 0;
+}
+
+.contact-card:hover .card-arrow {
+    color: #bb4343;
+    transform: translate(3px, -3px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+    .contact-card {
+        padding: 14px 16px;
+        gap: 14px;
+    }
+
+    .card-icon {
+        width: 44px;
+        height: 44px;
+    }
+
+    .handle {
+        font-size: 0.9rem;
+    }
+}

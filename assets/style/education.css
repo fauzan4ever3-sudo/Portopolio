@@ -1,0 +1,251 @@
+/* ── Layout ── */
+main {
+    padding: 50px clamp(20px, 6vw, 80px) 0;
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+/* ── Header ── */
+.edu-header {
+    margin-bottom: 52px;
+}
+
+.edu-header h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: #f0f0f0;
+    margin-bottom: 12px;
+}
+
+.edu-header h1 span {
+    color: #bb4343;
+}
+
+.edu-header p {
+    color: #7a7a7a;
+    font-size: 1rem;
+    max-width: 520px;
+    line-height: 1.6;
+}
+
+/* ── Timeline ── */
+.timeline {
+    position: relative;
+    padding-left: 32px;
+    margin-bottom: 48px;
+}
+
+/* Vertical line */
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, #bb4343, rgba(187, 67, 67, 0.1));
+    border-radius: 2px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 28px;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Dot on the line */
+.timeline-dot {
+    position: absolute;
+    left: -28px;
+    top: 20px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #bb4343;
+    border: 2px solid #07080c;
+    box-shadow: 0 0 0 3px rgba(187, 67, 67, 0.25);
+}
+
+/* Pulse animation for active item */
+.timeline-dot.pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(187, 67, 67, 0.3); }
+    50%       { box-shadow: 0 0 0 7px rgba(187, 67, 67, 0.1); }
+}
+
+/* ── Timeline Card ── */
+.timeline-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 14px;
+    padding: 22px 24px;
+    transition: all 0.35s cubic-bezier(.4, 0, .2, 1);
+}
+
+.timeline-card:hover {
+    border-color: rgba(187, 67, 67, 0.3);
+    background: rgba(187, 67, 67, 0.04);
+    transform: translateX(4px);
+}
+
+.active-edu .timeline-card {
+    border-color: rgba(187, 67, 67, 0.25);
+    background: rgba(187, 67, 67, 0.05);
+}
+
+.timeline-card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.edu-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgba(187, 67, 67, 0.12);
+    color: #bb4343;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.timeline-card-header > div:nth-child(2) {
+    flex: 1;
+}
+
+.timeline-card-header h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #f0f0f0;
+    margin-bottom: 3px;
+}
+
+.edu-place {
+    font-size: 0.82rem;
+    color: #666;
+}
+
+.edu-year {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #555;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    white-space: nowrap;
+}
+
+.active-badge {
+    color: #bb4343 !important;
+    background: rgba(187, 67, 67, 0.1) !important;
+    border-color: rgba(187, 67, 67, 0.25) !important;
+}
+
+.timeline-card p {
+    font-size: 0.9rem;
+    color: #7a7a7a;
+    line-height: 1.7;
+}
+
+/* ── About / Extra Cards ── */
+.about-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 56px;
+}
+
+.about-card {
+    display: flex;
+    gap: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 14px;
+    padding: 22px 20px;
+    transition: all 0.35s cubic-bezier(.4, 0, .2, 1);
+}
+
+.about-card:hover {
+    border-color: rgba(187, 67, 67, 0.25);
+    background: rgba(187, 67, 67, 0.04);
+    transform: translateY(-3px);
+}
+
+.about-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: rgba(187, 67, 67, 0.12);
+    color: #bb4343;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.about-card h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #f0f0f0;
+    margin-bottom: 8px;
+}
+
+.about-card p {
+    font-size: 0.875rem;
+    color: #7a7a7a;
+    line-height: 1.7;
+}
+
+/* ── Scroll Animations ── */
+.edu-item {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s cubic-bezier(.4, 0, .2, 1),
+                transform 0.6s cubic-bezier(.4, 0, .2, 1);
+}
+
+.edu-item.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ── Copyright ── */
+.copyright {
+    height: 80px;
+    color: #444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid #1e1e1e;
+    font-size: 0.85rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+    .timeline {
+        padding-left: 24px;
+    }
+
+    .timeline-dot {
+        left: -20px;
+    }
+
+    .timeline-card-header {
+        gap: 10px;
+    }
+
+    .edu-year {
+        width: 100%;
+        text-align: center;
+    }
+}
