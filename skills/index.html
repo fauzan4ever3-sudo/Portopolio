@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rijal - Skills</title>
+    <title>Rijal — Skills</title>
     <link rel="stylesheet" href="./../assets/style/global.css">
     <link rel="stylesheet" href="./../assets/style/skill.css">
 </head>
 <body>
-    <div class="content">
+    <div class="cursor-glow"></div>
+    <div class="content page-wrap">
         <nav>
-            <div class="name"><h2>Rijal</h2></div>
+            <a href="/" class="nav-logo">
+                <div class="nav-logo-dot"></div>
+                <h2>Ri<span>jal</span></h2>
+            </a>
             <button class="hamburger" aria-label="Toggle menu">
                 <span></span><span></span><span></span>
             </button>
@@ -23,49 +27,92 @@
                 <a href="./../contact">Contact</a>
             </div>
         </nav>
+
         <main>
-            <div class="skills-header">
-                <h1>My <span>Skills</span></h1>
-                <p>Kompetensi dalam pengembangan aplikasi web secara menyeluruh, dari antarmuka hingga sistem backend dan database.</p>
+            <!-- Header -->
+            <div class="skills-header reveal">
+                <div class="section-tag">What I Know</div>
+                <h1>My <span class="accent">Skills</span></h1>
+                <p>Kompetensi dalam pengembangan aplikasi web secara menyeluruh — dari antarmuka yang responsif hingga sistem backend dan manajemen database.</p>
             </div>
 
-            <!-- Tech Stack Icons -->
-            <div class="tech-stack">
-                <div class="tech-item">
-                    <img src="./../assets/source/128px-HTML5_logo_and_wordmark.svg.png" alt="HTML5">
-                    <span>HTML5</span>
-                </div>
-                <div class="tech-item">
-                    <img src="./../assets/source/128px-Devicon-css3-plain-wordmark.svg.png" alt="CSS3">
-                    <span>CSS3</span>
-                </div>
-                <div class="tech-item">
-                    <img src="./../assets/source/128px-Unofficial_JavaScript_logo_2.svg.png" alt="JavaScript">
-                    <span>JavaScript</span>
-                </div>
-                <div class="tech-item">
-                    <img src="./../assets/source/128px-React_Logo_SVG.svg.png" alt="React">
-                    <span>React</span>
-                </div>
-                <div class="tech-item">
-                    <img src="./../assets/source/128px-PHP-logo.svg.png" alt="PHP">
-                    <span>PHP</span>
-                </div>
-                <div class="tech-item">
-                    <img src="./../assets/source/64px-Python-logo-notext.svg.png" alt="Python">
-                    <span>Python</span>
-                </div>
-                <div class="tech-item">
-                    <img src="./../assets/source/pngwing.com.png" alt="XAMPP">
-                    <span>XAMPP</span>
+            <!-- Marquee Tech Stack -->
+            <div class="marquee-section reveal">
+                <div class="marquee-track" id="marqueeTrack">
+                    <!-- Row 1 (duplicated for seamless loop by JS) -->
+                    <div class="tech-chip">
+                        <img src="./../assets/source/128px-HTML5_logo_and_wordmark.svg.png" alt="HTML5">
+                        <span>HTML5</span>
+                    </div>
+                    <div class="tech-chip">
+                        <img src="./../assets/source/128px-Devicon-css3-plain-wordmark.svg.png" alt="CSS3">
+                        <span>CSS3</span>
+                    </div>
+                    <div class="tech-chip">
+                        <img src="./../assets/source/128px-Unofficial_JavaScript_logo_2.svg.png" alt="JavaScript">
+                        <span>JavaScript</span>
+                    </div>
+                    <div class="tech-chip">
+                        <img src="./../assets/source/128px-React_Logo_SVG.svg.png" alt="React">
+                        <span>React</span>
+                    </div>
+                    <div class="tech-chip">
+                        <img src="./../assets/source/128px-PHP-logo.svg.png" alt="PHP">
+                        <span>PHP</span>
+                    </div>
+                    <div class="tech-chip">
+                        <img src="./../assets/source/64px-Python-logo-notext.svg.png" alt="Python">
+                        <span>Python</span>
+                    </div>
+                    <div class="tech-chip">
+                        <img src="./../assets/source/pngwing.com.png" alt="XAMPP">
+                        <span>XAMPP</span>
+                    </div>
+                    <div class="tech-chip">
+                        <img src="./../assets/source/DBMS3.png" alt="MySQL">
+                        <span>MySQL</span>
+                    </div>
+                    <!-- Duplicate for loop -->
+                    <div class="tech-chip">
+                        <img src="./../assets/source/128px-HTML5_logo_and_wordmark.svg.png" alt="HTML5">
+                        <span>HTML5</span>
+                    </div>
+                    <div class="tech-chip">
+                        <img src="./../assets/source/128px-Devicon-css3-plain-wordmark.svg.png" alt="CSS3">
+                        <span>CSS3</span>
+                    </div>
+                    <div class="tech-chip">
+                        <img src="./../assets/source/128px-Unofficial_JavaScript_logo_2.svg.png" alt="JavaScript">
+                        <span>JavaScript</span>
+                    </div>
+                    <div class="tech-chip">
+                        <img src="./../assets/source/128px-React_Logo_SVG.svg.png" alt="React">
+                        <span>React</span>
+                    </div>
+                    <div class="tech-chip">
+                        <img src="./../assets/source/128px-PHP-logo.svg.png" alt="PHP">
+                        <span>PHP</span>
+                    </div>
+                    <div class="tech-chip">
+                        <img src="./../assets/source/64px-Python-logo-notext.svg.png" alt="Python">
+                        <span>Python</span>
+                    </div>
+                    <div class="tech-chip">
+                        <img src="./../assets/source/pngwing.com.png" alt="XAMPP">
+                        <span>XAMPP</span>
+                    </div>
+                    <div class="tech-chip">
+                        <img src="./../assets/source/DBMS3.png" alt="MySQL">
+                        <span>MySQL</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Skill Categories -->
+            <!-- Skill Cards -->
             <div class="skill-categories">
 
                 <!-- Frontend -->
-                <div class="skill-card">
+                <div class="skill-card reveal delay-1" data-tilt>
                     <div class="skill-card-header">
                         <div class="skill-icon frontend-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
@@ -73,7 +120,7 @@
                         <h2>Frontend</h2>
                         <span class="skill-badge">3 Skills</span>
                     </div>
-                    <p class="skill-desc">Mampu mengembangkan antarmuka pengguna yang responsif dan modern dengan memperhatikan performa serta user experience.</p>
+                    <p class="skill-desc">Mampu membangun antarmuka yang responsif dan modern dengan perhatian penuh pada performa dan user experience.</p>
                     <div class="skill-list">
                         <div class="skill-item">
                             <div class="skill-item-top">
@@ -92,7 +139,7 @@
                         <div class="skill-item">
                             <div class="skill-item-top">
                                 <span class="skill-name">JavaScript</span>
-                                <span class="skill-level">DOM & Interactive Features</span>
+                                <span class="skill-level">DOM & Interactive</span>
                             </div>
                             <div class="skill-bar"><div class="skill-fill" style="--w: 80%"></div></div>
                         </div>
@@ -100,7 +147,7 @@
                 </div>
 
                 <!-- Backend -->
-                <div class="skill-card">
+                <div class="skill-card reveal delay-2" data-tilt>
                     <div class="skill-card-header">
                         <div class="skill-icon backend-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/><path d="m9 8 3 3-3 3"/><path d="M15 14h-3"/></svg>
@@ -135,7 +182,7 @@
                 </div>
 
                 <!-- Database -->
-                <div class="skill-card">
+                <div class="skill-card reveal delay-3" data-tilt>
                     <div class="skill-card-header">
                         <div class="skill-icon database-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/></svg>
@@ -171,7 +218,17 @@
 
             </div>
         </main>
+
+        <footer class="site-footer reveal">
+            <p>&copy; 2026 <span>Rijal Rahman</span>. All rights reserved.</p>
+            <nav class="footer-links">
+                <a href="./../">Home</a>
+                <a href="./../skills">Skills</a>
+                <a href="./../contact">Contact</a>
+            </nav>
+        </footer>
     </div>
+
     <script src="./../assets/script/global.js"></script>
 </body>
 </html>

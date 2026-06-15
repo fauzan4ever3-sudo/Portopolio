@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/assets/style/global.css">
+    <title>Rijal — Experience</title>
+    <link rel="stylesheet" href="./../assets/style/global.css">
+    <link rel="stylesheet" href="./../assets/style/experience.css">
 </head>
 <body>
+    <div class="cursor-glow"></div>
     <div class="content">
         <nav>
-            <div class="name"><h2>Rijal</h2></div>
+            <a href="/" class="nav-logo">
+                <div class="nav-logo-dot"></div>
+                <h2>Ri<span>jal</span></h2>
+            </a>
             <button class="hamburger" aria-label="Toggle menu">
                 <span></span><span></span><span></span>
             </button>
@@ -22,9 +27,109 @@
                 <a href="./../contact">Contact</a>
             </div>
         </nav>
+
         <main>
+            <!-- Header -->
+            <div class="exp-header reveal">
+                <div class="section-tag">My Story</div>
+                <h1>My <span class="accent">Experience</span></h1>
+                <p>Perjalanan belajar dan membangun proyek nyata yang membentuk kemampuan saya sebagai developer.</p>
+            </div>
+
+            <!-- Timeline -->
+            <div class="exp-timeline">
+
+                <!-- Item 1 -->
+                <div class="exp-item">
+                    <div class="exp-dot current"></div>
+                    <div class="exp-card">
+                        <div class="exp-card-header">
+                            <div class="exp-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                            </div>
+                            <div class="exp-title-block">
+                                <h3>Fullstack Web Developer</h3>
+                                <span class="exp-org">Freelance / Self-project</span>
+                            </div>
+                            <span class="exp-period active-badge">Sekarang</span>
+                        </div>
+                        <p class="exp-desc">Membangun berbagai proyek web secara mandiri mulai dari sistem manajemen data hingga website portofolio. Mengasah kemampuan pada seluruh stack: HTML, CSS, JavaScript, PHP, dan MySQL.</p>
+                        <div class="exp-tags">
+                            <span class="exp-tag">HTML / CSS</span>
+                            <span class="exp-tag">JavaScript</span>
+                            <span class="exp-tag">PHP</span>
+                            <span class="exp-tag">MySQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="exp-item">
+                    <div class="exp-dot"></div>
+                    <div class="exp-card">
+                        <div class="exp-card-header">
+                            <div class="exp-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            </div>
+                            <div class="exp-title-block">
+                                <h3>Anggota Ekstrakurikuler IT</h3>
+                                <span class="exp-org">MA Ma'had Al-Zaytun</span>
+                            </div>
+                            <span class="exp-period">2024 — Sekarang</span>
+                        </div>
+                        <p class="exp-desc">Aktif dalam kegiatan ekstrakurikuler IT yang berfokus pada pengembangan web dan pemrograman. Berkolaborasi dalam proyek tim, memperdalam pemahaman konsep teknologi secara praktis, dan meningkatkan kemampuan problem solving.</p>
+                        <div class="exp-tags">
+                            <span class="exp-tag">Teamwork</span>
+                            <span class="exp-tag">Web Dev</span>
+                            <span class="exp-tag">Problem Solving</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="exp-item">
+                    <div class="exp-dot"></div>
+                    <div class="exp-card">
+                        <div class="exp-card-header">
+                            <div class="exp-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+                            </div>
+                            <div class="exp-title-block">
+                                <h3>Belajar Mandiri Pemrograman</h3>
+                                <span class="exp-org">Self-taught</span>
+                            </div>
+                            <span class="exp-period">2022 — Sekarang</span>
+                        </div>
+                        <p class="exp-desc">Memulai perjalanan belajar pemrograman secara otodidak sejak kelas di MTs. Mempelajari HTML, CSS, JavaScript, PHP, Python, hingga konsep database dari berbagai sumber online dan mengaplikasikannya dalam proyek nyata.</p>
+                        <div class="exp-tags">
+                            <span class="exp-tag">Self-taught</span>
+                            <span class="exp-tag">Python</span>
+                            <span class="exp-tag">React</span>
+                            <span class="exp-tag">REST API</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Stats -->
+            <div class="exp-stats">
+                <div class="stat-card reveal delay-1">
+                    <div class="stat-number" data-count="10" data-suffix="+">0+</div>
+                    <div class="stat-label">Proyek Selesai</div>
+                </div>
+                <div class="stat-card reveal delay-2">
+                    <div class="stat-number" data-count="3" data-suffix="+">0+</div>
+                    <div class="stat-label">Tahun Belajar</div>
+                </div>
+                <div class="stat-card reveal delay-3">
+                    <div class="stat-number" data-count="7" data-suffix="+">0+</div>
+                    <div class="stat-label">Teknologi Dikuasai</div>
+                </div>
+            </div>
         </main>
     </div>
-    <script  src="/assets/script/global.js"></script>
+
+    <script src="./../assets/script/global.js"></script>
 </body>
 </html>

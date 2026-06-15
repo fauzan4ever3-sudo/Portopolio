@@ -1,113 +1,105 @@
-/* ── Page Layout ── */
+/* ══════════════════════════════════
+   CONTACT PAGE
+══════════════════════════════════ */
+
 main {
+    min-height: calc(100vh - var(--nav-h));
     display: flex;
-    justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 71px);
-    padding: 40px 20px;
+    justify-content: center;
+    padding: 60px clamp(20px, 6vw, 80px);
 }
 
-.main-content {
+.contact-wrapper {
     width: 100%;
-    max-width: 680px;
+    max-width: 700px;
 }
 
 /* ── Header ── */
-.header {
-    margin-bottom: 40px;
+.contact-header {
+    margin-bottom: 48px;
 }
 
-.header h1 {
-    font-size: clamp(2rem, 5vw, 3rem);
-    color: #f0f0f0;
-    margin-bottom: 10px;
+.contact-header h1 {
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
 }
 
-.header h1 span {
-    color: #bb4343;
-}
+.contact-header h1 .accent { color: var(--accent); }
 
-.header p {
-    color: #7a7a7a;
+.contact-header p {
+    color: var(--text-muted);
     font-size: 1rem;
+    line-height: 1.6;
 }
 
-/* ── Contact Cards ── */
+/* ── Contact Grid ── */
 .contact-grid {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
 }
 
+/* ── Card ── */
 .contact-card {
     display: flex;
     align-items: center;
     gap: 18px;
     padding: 18px 22px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
     text-decoration: none;
-    transition: all 0.35s cubic-bezier(.4, 0, .2, 1);
+    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
 }
 
+/* Ripple shine on hover */
 .contact-card::before {
     content: "";
     position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(187, 67, 67, 0.06), transparent);
-    opacity: 0;
-    transition: opacity 0.35s ease;
-    border-radius: 14px;
+    top: 0; left: -100%;
+    width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+    transition: left 0.5s ease;
+    pointer-events: none;
 }
 
 .contact-card:hover {
-    border-color: rgba(187, 67, 67, 0.4);
+    border-color: var(--border-hover);
+    background: rgba(192,57,43,0.04);
     transform: translateX(6px);
-    background: rgba(187, 67, 67, 0.05);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
 }
 
 .contact-card:hover::before {
-    opacity: 1;
+    left: 150%;
 }
 
 /* ── Icon Circle ── */
 .card-icon {
-    width: 54px;
-    height: 54px;
-    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    transition: transform 0.35s cubic-bezier(.4, 0, .2, 1);
+    transition: transform 0.3s ease;
 }
 
 .contact-card:hover .card-icon {
-    transform: scale(1.1);
+    transform: scale(1.1) rotate(-5deg);
 }
 
-.card-icon.instagram {
-    background: rgba(193, 53, 132, 0.15);
-    color: #e1306c;
-}
-
-.card-icon.whatsapp {
-    background: rgba(37, 211, 102, 0.12);
-    color: #25d366;
-}
-
-.card-icon.github {
-    background: rgba(200, 200, 200, 0.1);
-    color: #c9c9c9;
-}
-
-.card-icon.email {
-    background: rgba(187, 67, 67, 0.15);
-    color: #bb4343;
-}
+.card-icon.instagram  { background: rgba(193,53,132,0.12); color: #e1306c; }
+.card-icon.whatsapp   { background: rgba(37,211,102,0.1);  color: #25d366; }
+.card-icon.github     { background: rgba(200,200,200,0.08); color: #c9c9c9; }
+.card-icon.email      { background: var(--accent-soft);    color: var(--accent); }
 
 /* ── Text Info ── */
 .card-info {
@@ -115,52 +107,46 @@ main {
     flex-direction: column;
     gap: 3px;
     flex: 1;
+    min-width: 0;
 }
 
 .platform {
-    font-size: 0.78rem;
-    font-weight: 600;
+    font-size: 0.72rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #555;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
 }
 
 .handle {
-    font-size: 1rem;
-    color: #d4d4d4;
+    font-size: 0.95rem;
+    color: #ccc;
     font-weight: 500;
     transition: color 0.3s ease;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .contact-card:hover .handle {
-    color: #ffffff;
+    color: var(--text);
 }
 
-/* ── Arrow Icon ── */
+/* ── Arrow ── */
 .card-arrow {
-    color: #444;
-    transition: all 0.35s cubic-bezier(.4, 0, .2, 1);
+    color: var(--text-dim);
     flex-shrink: 0;
+    transition: all 0.3s ease;
 }
 
 .contact-card:hover .card-arrow {
-    color: #bb4343;
+    color: var(--accent);
     transform: translate(3px, -3px);
 }
 
 /* ── Responsive ── */
 @media (max-width: 480px) {
-    .contact-card {
-        padding: 14px 16px;
-        gap: 14px;
-    }
-
-    .card-icon {
-        width: 44px;
-        height: 44px;
-    }
-
-    .handle {
-        font-size: 0.9rem;
-    }
+    .contact-card { padding: 14px 16px; gap: 14px; }
+    .card-icon { width: 44px; height: 44px; border-radius: 11px; }
+    .handle { font-size: 0.875rem; }
 }

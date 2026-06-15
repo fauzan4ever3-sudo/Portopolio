@@ -1,101 +1,116 @@
-/* ── Layout ── */
+/* ══════════════════════════════════
+   EDUCATION PAGE
+══════════════════════════════════ */
+
 main {
-    padding: 50px clamp(20px, 6vw, 80px) 0;
+    padding: 60px clamp(20px, 6vw, 80px) 80px;
     max-width: 860px;
     margin: 0 auto;
 }
 
 /* ── Header ── */
 .edu-header {
-    margin-bottom: 52px;
+    margin-bottom: 56px;
 }
 
 .edu-header h1 {
-    font-size: clamp(2rem, 5vw, 3rem);
-    color: #f0f0f0;
-    margin-bottom: 12px;
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.03em;
+    margin-bottom: 14px;
 }
 
-.edu-header h1 span {
-    color: #bb4343;
-}
+.edu-header h1 .accent { color: var(--accent); }
 
 .edu-header p {
-    color: #7a7a7a;
+    color: var(--text-muted);
     font-size: 1rem;
     max-width: 520px;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
-/* ── Timeline ── */
+/* ═══════════════════════════════════
+   TIMELINE
+═══════════════════════════════════ */
 .timeline {
     position: relative;
-    padding-left: 32px;
-    margin-bottom: 48px;
+    padding-left: 36px;
+    margin-bottom: 56px;
 }
 
 /* Vertical line */
 .timeline::before {
     content: "";
     position: absolute;
-    left: 7px;
-    top: 8px;
-    bottom: 8px;
+    left: 8px;
+    top: 10px;
+    bottom: 10px;
     width: 2px;
-    background: linear-gradient(to bottom, #bb4343, rgba(187, 67, 67, 0.1));
+    background: linear-gradient(to bottom, var(--accent) 0%, rgba(192,57,43,0.1) 100%);
     border-radius: 2px;
 }
 
 .timeline-item {
     position: relative;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
 }
 
 .timeline-item:last-child {
     margin-bottom: 0;
 }
 
-/* Dot on the line */
+/* Dot */
 .timeline-dot {
     position: absolute;
-    left: -28px;
-    top: 20px;
-    width: 14px;
-    height: 14px;
+    left: -30px;
+    top: 22px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
-    background: #bb4343;
-    border: 2px solid #07080c;
-    box-shadow: 0 0 0 3px rgba(187, 67, 67, 0.25);
+    background: var(--bg);
+    border: 2px solid var(--text-dim);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    z-index: 1;
 }
 
-/* Pulse animation for active item */
+.timeline-item:hover .timeline-dot,
+.active-edu .timeline-dot {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(192,57,43,0.15);
+}
+
 .timeline-dot.pulse {
-    animation: pulse 2s ease-in-out infinite;
+    border-color: var(--accent);
+    background: var(--accent);
+    animation: timelinePulse 2.5s ease-in-out infinite;
 }
 
-@keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 3px rgba(187, 67, 67, 0.3); }
-    50%       { box-shadow: 0 0 0 7px rgba(187, 67, 67, 0.1); }
+@keyframes timelinePulse {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(192,57,43,0.2); }
+    50%       { box-shadow: 0 0 0 8px rgba(192,57,43,0.05); }
 }
 
-/* ── Timeline Card ── */
+/* Card */
 .timeline-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
     padding: 22px 24px;
-    transition: all 0.35s cubic-bezier(.4, 0, .2, 1);
+    transition: all 0.35s ease;
+    cursor: default;
 }
 
 .timeline-card:hover {
-    border-color: rgba(187, 67, 67, 0.3);
-    background: rgba(187, 67, 67, 0.04);
-    transform: translateX(4px);
+    border-color: var(--border-hover);
+    background: rgba(192,57,43,0.04);
+    transform: translateX(5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
 .active-edu .timeline-card {
-    border-color: rgba(187, 67, 67, 0.25);
-    background: rgba(187, 67, 67, 0.05);
+    border-color: rgba(192,57,43,0.25);
+    background: rgba(192,57,43,0.05);
 }
 
 .timeline-card-header {
@@ -110,83 +125,83 @@ main {
     width: 40px;
     height: 40px;
     border-radius: 10px;
-    background: rgba(187, 67, 67, 0.12);
-    color: #bb4343;
+    background: var(--accent-soft);
+    color: var(--accent);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
 }
 
-.timeline-card-header > div:nth-child(2) {
-    flex: 1;
-}
-
 .timeline-card-header h3 {
     font-size: 1rem;
-    font-weight: 600;
-    color: #f0f0f0;
+    font-weight: 700;
+    color: var(--text);
     margin-bottom: 3px;
 }
 
 .edu-place {
-    font-size: 0.82rem;
-    color: #666;
+    font-size: 0.8rem;
+    color: var(--text-muted);
 }
 
 .edu-year {
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     font-weight: 600;
-    color: #555;
-    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-dim);
+    background: var(--surface);
     padding: 4px 12px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 99px;
+    border: 1px solid var(--border);
     white-space: nowrap;
+    margin-left: auto;
 }
 
 .active-badge {
-    color: #bb4343 !important;
-    background: rgba(187, 67, 67, 0.1) !important;
-    border-color: rgba(187, 67, 67, 0.25) !important;
+    color: var(--accent) !important;
+    background: var(--accent-soft) !important;
+    border-color: rgba(192,57,43,0.25) !important;
 }
 
 .timeline-card p {
-    font-size: 0.9rem;
-    color: #7a7a7a;
-    line-height: 1.7;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.75;
 }
 
-/* ── About / Extra Cards ── */
+/* ══════════════════════════════════
+   ABOUT EXTRA CARDS
+══════════════════════════════════ */
 .about-section {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 16px;
-    margin-bottom: 56px;
+    margin-bottom: 64px;
 }
 
 .about-card {
     display: flex;
     gap: 16px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
     padding: 22px 20px;
-    transition: all 0.35s cubic-bezier(.4, 0, .2, 1);
+    transition: all 0.35s ease;
 }
 
 .about-card:hover {
-    border-color: rgba(187, 67, 67, 0.25);
-    background: rgba(187, 67, 67, 0.04);
-    transform: translateY(-3px);
+    border-color: var(--border-hover);
+    background: rgba(192,57,43,0.04);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.3);
 }
 
 .about-icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 10px;
-    background: rgba(187, 67, 67, 0.12);
-    color: #bb4343;
+    width: 44px;
+    height: 44px;
+    border-radius: 11px;
+    background: var(--accent-soft);
+    color: var(--accent);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -195,23 +210,23 @@ main {
 
 .about-card h3 {
     font-size: 0.95rem;
-    font-weight: 600;
-    color: #f0f0f0;
+    font-weight: 700;
+    color: var(--text);
     margin-bottom: 8px;
 }
 
 .about-card p {
     font-size: 0.875rem;
-    color: #7a7a7a;
-    line-height: 1.7;
+    color: var(--text-muted);
+    line-height: 1.75;
 }
 
-/* ── Scroll Animations ── */
+/* ── edu-item reveal (used by scroll.js) ── */
 .edu-item {
     opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s cubic-bezier(.4, 0, .2, 1),
-                transform 0.6s cubic-bezier(.4, 0, .2, 1);
+    transform: translateY(22px);
+    transition: opacity 0.6s cubic-bezier(.4,0,.2,1),
+                transform 0.6s cubic-bezier(.4,0,.2,1);
 }
 
 .edu-item.show {
@@ -221,30 +236,26 @@ main {
 
 /* ── Copyright ── */
 .copyright {
-    height: 80px;
-    color: #444;
+    height: 72px;
+    color: var(--text-dim);
     display: flex;
     align-items: center;
     justify-content: center;
-    border-top: 1px solid #1e1e1e;
-    font-size: 0.85rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.82rem;
 }
 
 /* ── Responsive ── */
 @media (max-width: 600px) {
-    .timeline {
-        padding-left: 24px;
-    }
-
-    .timeline-dot {
-        left: -20px;
-    }
+    .timeline { padding-left: 26px; }
+    .timeline-dot { left: -22px; }
 
     .timeline-card-header {
         gap: 10px;
     }
 
     .edu-year {
+        margin-left: 0;
         width: 100%;
         text-align: center;
     }

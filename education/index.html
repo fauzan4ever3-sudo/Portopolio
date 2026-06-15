@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rijal - Education</title>
+    <title>Rijal — Education</title>
     <link rel="stylesheet" href="./../assets/style/global.css">
     <link rel="stylesheet" href="./../assets/style/education.css">
 </head>
 <body>
-    <div class="content">
+    <div class="cursor-glow"></div>
+    <div class="content page-wrap">
         <nav>
-            <div class="name"><h2>Rijal</h2></div>
+            <a href="/" class="nav-logo">
+                <div class="nav-logo-dot"></div>
+                <h2>Ri<span>jal</span></h2>
+            </a>
             <button class="hamburger" aria-label="Toggle menu">
                 <span></span><span></span><span></span>
             </button>
@@ -23,9 +27,12 @@
                 <a href="./../contact">Contact</a>
             </div>
         </nav>
+
         <main>
-            <div class="edu-header">
-                <h1>My <span>Education</span></h1>
+            <!-- Header -->
+            <div class="edu-header reveal">
+                <div class="section-tag">My Journey</div>
+                <h1>My <span class="accent">Education</span></h1>
                 <p>Perjalanan pendidikan yang membangun fondasi kuat dalam teknologi dan pengembangan web.</p>
             </div>
 
@@ -68,7 +75,7 @@
                     </div>
                 </div>
 
-                <!-- MA -->
+                <!-- MA (Active) -->
                 <div class="timeline-item edu-item active-edu">
                     <div class="timeline-dot pulse"></div>
                     <div class="timeline-card">
@@ -88,18 +95,18 @@
 
             </div>
 
-            <!-- About Section -->
+            <!-- About/Extra Cards -->
             <div class="about-section">
-                <div class="about-card edu-item">
+                <div class="about-card edu-item" data-tilt>
                     <div class="about-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
                     </div>
                     <div>
                         <h3>Pengembangan Mandiri</h3>
-                        <p>Selain pendidikan formal, saya secara konsisten belajar mandiri di bidang teknologi — mulai dari frontend, backend, hingga database design — untuk mendukung cita-cita sebagai Fullstack Programmer yang profesional.</p>
+                        <p>Selain pendidikan formal, saya secara konsisten belajar mandiri di bidang teknologi — mulai dari frontend, backend, hingga database design — untuk mendukung cita-cita sebagai Fullstack Programmer.</p>
                     </div>
                 </div>
-                <div class="about-card edu-item">
+                <div class="about-card edu-item" data-tilt>
                     <div class="about-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                     </div>
@@ -111,11 +118,20 @@
             </div>
 
             <div class="copyright">
-                <p>All rights Reserved | Rijal Rahman</p>
+                <p>All rights Reserved &copy; Rijal Rahman</p>
             </div>
         </main>
+
+        <footer class="site-footer reveal">
+            <p>&copy; 2026 <span>Rijal Rahman</span>. All rights reserved.</p>
+            <nav class="footer-links">
+                <a href="./../">Home</a>
+                <a href="./../skills">Skills</a>
+                <a href="./../contact">Contact</a>
+            </nav>
+        </footer>
     </div>
+
     <script src="./../assets/script/global.js"></script>
-    <script src="./../assets/script/scroll.js"></script>
 </body>
 </html>
