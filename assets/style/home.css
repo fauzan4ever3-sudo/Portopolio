@@ -6,6 +6,16 @@ body {
     overflow-x: hidden;
 }
 
+#particles-js {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: radial-gradient(circle at top, rgba(255,255,255,0.03), transparent 18%),
+                radial-gradient(circle at 20% 80%, rgba(192,57,43,0.08), transparent 16%),
+                #080a0f;
+    pointer-events: none;
+}
+
 /* ── Hero Section ── */
 .hero {
     min-height: calc(100vh - var(--nav-h));

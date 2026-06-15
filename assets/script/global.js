@@ -202,6 +202,38 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    // ── Particle background for pages ──
+    const particlesCanvas = document.getElementById("particles-js");
+    if (particlesCanvas && typeof particlesJS === "function") {
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 70, density: { enable: true, value_area: 900 } },
+                color: { value: "#ffffff" },
+                shape: { type: "circle", stroke: { width: 0, color: "#ffffff" }, polygon: { nb_sides: 5 } },
+                opacity: { value: 0.48, random: true, anim: { enable: true, speed: 1.2, opacity_min: 0.18, sync: false } },
+                size: { value: 3.2, random: true, anim: { enable: true, speed: 4, size_min: 0.22, sync: false } },
+                line_linked: { enable: true, distance: 160, color: "#c0392b", opacity: 0.2, width: 1.2 },
+                move: { enable: true, speed: 1.5, direction: "none", random: false, straight: false, out_mode: "out", bounce: false, attract: { enable: false } }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "grab" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                },
+                modes: {
+                    grab: { distance: 180, line_linked: { opacity: 0.42 } },
+                    bubble: { distance: 220, size: 10, duration: 0.4, opacity: 0.55, speed: 3 },
+                    repulse: { distance: 220, duration: 0.4 },
+                    push: { particles_nb: 4 },
+                    remove: { particles_nb: 2 }
+                }
+            },
+            retina_detect: true
+        });
+    }
+
     // ── Active link highlight ── (re-run for SPA-like feel)
     function setActiveLink() {
         const path = window.location.pathname.replace(/\/$/, "");

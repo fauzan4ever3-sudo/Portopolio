@@ -30,6 +30,17 @@ body {
     color: var(--text);
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+    position: relative;
+}
+
+#particles-js {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(circle at top, rgba(255,255,255,0.04), transparent 16%),
+                radial-gradient(circle at 20% 80%, rgba(192,57,43,0.1), transparent 20%),
+                #06080f;
+    pointer-events: none;
 }
 
 /* ── Noise Texture Overlay ── */
