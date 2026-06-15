@@ -234,6 +234,102 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    function getVisitorRatingData() {
+        const raw = localStorage.getItem("visitorRatingData");
+        if (!raw) return { count: 0, sum: 0, last: 0 };
+        try {
+            const parsed = JSON.parse(raw);
+            return {
+                count: Number(parsed.count) || 0,
+                sum: Number(parsed.sum) || 0,
+                last: Number(parsed.last) || 0
+            };
+        } catch {
+            return { count: 0, sum: 0, last: 0 };
+        }
+    }
+
+    function saveVisitorRating(value) {
+        const data = getVisitorRatingData();
+        data.count += 1;
+        data.sum += value;
+        data.last = value;
+        localStorage.setItem("visitorRatingData", JSON.stringify(data));
+        return data;
+    }
+
+    function renderStars(rating) {
+        const stars = [];
+        const rounded = Math.round(rating);
+        for (let i = 1; i <= 5; i++) {
+            const active = i <= rounded ? "active" : "";
+            stars.push(`<span class="${active}">★</span>`);
+        }
+        return stars.join("");
+    }
+
+    function updateRatingSummary() {
+        const data = getVisitorRatingData();
+        document.querySelectorAll("[data-rating-summary]").forEach(el => {
+            if (data.count > 0) {
+                const average = data.sum / data.count;
+                el.classList.remove("empty");
+                el.innerHTML = `
+                    <div class="rating-summary-score">${average.toFixed(1)}<span>/ 5</span></div>
+                    <div class="rating-summary-stars">${renderStars(average)}</div>
+                    <div class="rating-summary-meta">Based on ${data.count} visitor rating${data.count === 1 ? "" : "s"}.</div>
+                `;
+            } else {
+                el.classList.add("empty");
+                el.innerHTML = "<div>No visitor rating yet. Share your feedback on the contact page.</div>";
+            }
+        });
+    }
+
+    const ratingWidget = document.querySelector(".contact-rating");
+    if (ratingWidget) {
+        let selectedRating = 0;
+        const ratingStars = ratingWidget.querySelectorAll("[data-rating-value]");
+        const ratingSubmit = ratingWidget.querySelector(".rating-submit");
+        const ratingHelp = ratingWidget.querySelector(".rating-help-text");
+
+        function updateStarSelection() {
+            ratingStars.forEach(star => {
+                const value = Number(star.dataset.ratingValue);
+                star.classList.toggle("active", value <= selectedRating);
+            });
+            ratingHelp.textContent = selectedRating > 0
+                ? `You selected ${selectedRating} star${selectedRating === 1 ? "" : "s"}. Click submit to save.`
+                : "Choose a score from 1 to 5 and share your opinion.";
+        }
+
+        ratingStars.forEach(star => {
+            star.addEventListener("click", () => {
+                selectedRating = Number(star.dataset.ratingValue);
+                updateStarSelection();
+            });
+        });
+
+        if (ratingSubmit) {
+            ratingSubmit.addEventListener("click", () => {
+                if (!selectedRating) {
+                    ratingHelp.textContent = "Please select a rating before submitting.";
+                    return;
+                }
+                const data = saveVisitorRating(selectedRating);
+                updateRatingSummary();
+                ratingHelp.textContent = `Thanks! Your ${selectedRating}-star rating has been saved.`;
+                ratingSubmit.textContent = "Rating submitted";
+                ratingSubmit.disabled = true;
+                updateStarSelection();
+            });
+        }
+
+        updateRatingSummary();
+    } else {
+        updateRatingSummary();
+    }
+
     // ── Active link highlight ── (re-run for SPA-like feel)
     function setActiveLink() {
         const path = window.location.pathname.replace(/\/$/, "");
