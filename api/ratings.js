@@ -1,0 +1,106 @@
+const REMOTE_DB_URL = process.env.SUPABASE_URL;
+const REMOTE_DB_KEY = process.env.SUPABASE_KEY;
+const REMOTE_TABLE = process.env.SUPABASE_TABLE || "ratings";
+const useRemoteDb = Boolean(REMOTE_DB_URL && REMOTE_DB_KEY);
+
+function parseRequestBody(req) {
+  return new Promise((resolve, reject) => {
+    if (req.body && Object.keys(req.body).length > 0) {
+      return resolve(req.body);
+    }
+
+    let body = "";
+    req.on("data", chunk => body += chunk);
+    req.on("end", () => {
+      try {
+        const parsed = body ? JSON.parse(body) : {};
+        resolve(parsed);
+      } catch (error) {
+        reject(error);
+      }
+    });
+    req.on("error", reject);
+  });
+}
+
+async function fetchRemoteRatings() {
+  if (!useRemoteDb) {
+    throw new Error("SUPABASE_URL and SUPABASE_KEY are required.");
+  }
+
+  const url = `${REMOTE_DB_URL}/rest/v1/${REMOTE_TABLE}?select=rating,created_at&order=created_at.asc`;
+  const response = await fetch(url, {
+    headers: {
+      apikey: REMOTE_DB_KEY,
+      Authorization: `Bearer ${REMOTE_DB_KEY}`,
+      Accept: "application/json"
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error(`Remote DB fetch failed: ${response.status}`);
+  }
+
+  const rows = await response.json();
+  const count = rows.length;
+  const sum = rows.reduce((total, row) => total + Number(row.rating || 0), 0);
+  const last = count ? Number(rows[rows.length - 1].rating || 0) : 0;
+  const average = count > 0 ? Number((sum / count).toFixed(1)) : 0;
+  return { count, sum, last, average };
+}
+
+async function postRemoteRating(rating) {
+  if (!useRemoteDb) {
+    throw new Error("SUPABASE_URL and SUPABASE_KEY are required.");
+  }
+
+  const url = `${REMOTE_DB_URL}/rest/v1/${REMOTE_TABLE}`;
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      apikey: REMOTE_DB_KEY,
+      Authorization: `Bearer ${REMOTE_DB_KEY}`,
+      "Content-Type": "application/json",
+      Prefer: "return=representation"
+    },
+    body: JSON.stringify({ rating })
+  });
+
+  if (!response.ok) {
+    const errorBody = await response.text();
+    throw new Error(`Remote DB save failed: ${response.status} ${errorBody}`);
+  }
+
+  return response.json();
+}
+
+module.exports = async (req, res) => {
+  try {
+    if (!useRemoteDb) {
+      return res.status(500).json({ error: "Remote database credentials are not configured." });
+    }
+
+    if (req.method === "GET") {
+      const data = await fetchRemoteRatings();
+      return res.status(200).json(data);
+    }
+
+    if (req.method === "POST") {
+      const body = await parseRequestBody(req);
+      const rating = Number(body.rating);
+
+      if (!rating || rating < 1 || rating > 5) {
+        return res.status(400).json({ error: "Rating must be a number between 1 and 5." });
+      }
+
+      await postRemoteRating(rating);
+      return res.status(200).json({ message: "Rating saved to remote DB." });
+    }
+
+    res.setHeader("Allow", "GET, POST");
+    return res.status(405).json({ error: `Method ${req.method} not allowed.` });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Unable to process rating request." });
+  }
+};

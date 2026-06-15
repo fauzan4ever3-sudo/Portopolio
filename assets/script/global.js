@@ -234,28 +234,33 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    function getVisitorRatingData() {
-        const raw = localStorage.getItem("visitorRatingData");
-        if (!raw) return { count: 0, sum: 0, last: 0 };
+    async function fetchRatingSummary() {
         try {
-            const parsed = JSON.parse(raw);
-            return {
-                count: Number(parsed.count) || 0,
-                sum: Number(parsed.sum) || 0,
-                last: Number(parsed.last) || 0
-            };
-        } catch {
-            return { count: 0, sum: 0, last: 0 };
+            const response = await fetch("/api/ratings");
+            if (!response.ok) throw new Error("Failed to load rating summary");
+            return response.json();
+        } catch (error) {
+            console.error(error);
+            return { count: 0, sum: 0, last: 0, average: 0 };
         }
     }
 
-    function saveVisitorRating(value) {
-        const data = getVisitorRatingData();
-        data.count += 1;
-        data.sum += value;
-        data.last = value;
-        localStorage.setItem("visitorRatingData", JSON.stringify(data));
-        return data;
+    async function postRating(value) {
+        try {
+            const response = await fetch("/api/ratings", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ rating: value })
+            });
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || "Unable to submit rating.");
+            }
+            return response.json();
+        } catch (error) {
+            console.error(error);
+            return null;
+        }
     }
 
     function renderStars(rating) {
@@ -268,15 +273,14 @@ document.addEventListener("DOMContentLoaded", function () {
         return stars.join("");
     }
 
-    function updateRatingSummary() {
-        const data = getVisitorRatingData();
+    async function updateRatingSummary() {
+        const data = await fetchRatingSummary();
         document.querySelectorAll("[data-rating-summary]").forEach(el => {
             if (data.count > 0) {
-                const average = data.sum / data.count;
                 el.classList.remove("empty");
                 el.innerHTML = `
-                    <div class="rating-summary-score">${average.toFixed(1)}<span>/ 5</span></div>
-                    <div class="rating-summary-stars">${renderStars(average)}</div>
+                    <div class="rating-summary-score">${data.average.toFixed(1)}<span>/ 5</span></div>
+                    <div class="rating-summary-stars">${renderStars(data.average)}</div>
                     <div class="rating-summary-meta">Based on ${data.count} visitor rating${data.count === 1 ? "" : "s"}.</div>
                 `;
             } else {
@@ -311,13 +315,17 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         if (ratingSubmit) {
-            ratingSubmit.addEventListener("click", () => {
+            ratingSubmit.addEventListener("click", async () => {
                 if (!selectedRating) {
                     ratingHelp.textContent = "Please select a rating before submitting.";
                     return;
                 }
-                const data = saveVisitorRating(selectedRating);
-                updateRatingSummary();
+                const data = await postRating(selectedRating);
+                if (!data) {
+                    ratingHelp.textContent = "An error occurred. Please try again later.";
+                    return;
+                }
+                await updateRatingSummary();
                 ratingHelp.textContent = `Thanks! Your ${selectedRating}-star rating has been saved.`;
                 ratingSubmit.textContent = "Rating submitted";
                 ratingSubmit.disabled = true;
