@@ -30,7 +30,7 @@ async function fetchRemoteRatings() {
 
   // CATATAN: Jika data sudah sangat banyak, disarankan mengganti query ini 
   // dengan Supabase RPC (Stored Procedure) untuk menghitung AVG dan COUNT di database.
-  const url = `${REMOTE_DB_URL}/rest/v1/${REMOTE_TABLE}?select=rating&order=created_at.asc`;
+  const url = `${REMOTE_DB_URL}/rest/v1/${REMOTE_TABLE}?select=rating,email,comment,created_at&order=created_at.desc&limit=5`;
   const response = await fetch(url, {
     headers: {
       apikey: REMOTE_DB_KEY,
@@ -46,10 +46,18 @@ async function fetchRemoteRatings() {
   const rows = await response.json();
   const count = rows.length;
   const sum = rows.reduce((total, row) => total + Number(row.rating || 0), 0);
-  const last = count ? Number(rows[rows.length - 1].rating || 0) : 0;
   const average = count > 0 ? Number((sum / count).toFixed(1)) : 0;
   
-  return { count, sum, last, average };
+  return {
+    count,
+    average,
+    comments: rows.map(row => ({
+      rating: Number(row.rating || 0),
+      email: row.email || "Anonymous",
+      comment: row.comment || "",
+      created_at: row.created_at || null
+    }))
+  };
 }
 
 async function postRemoteRating(payload) {

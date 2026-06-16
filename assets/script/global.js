@@ -274,6 +274,31 @@ document.addEventListener("DOMContentLoaded", function () {
         return stars.join("");
     }
 
+    function escapeHtml(value) {
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;");
+    }
+
+    function renderCommentList(comments) {
+        if (!comments || !comments.length) {
+            return `<div class="hero-review-empty">No recent comments yet. Share your feedback on the contact page.</div>`;
+        }
+
+        return comments.map(comment => `
+            <div class="hero-review-item">
+                <div class="review-meta">
+                    <span class="review-email">${escapeHtml(comment.email)}</span>
+                    <span class="review-stars">${renderStars(comment.rating)}</span>
+                </div>
+                <p class="review-text">${escapeHtml(comment.comment)}</p>
+            </div>
+        `).join("");
+    }
+
     async function updateRatingSummary() {
         const data = await fetchRatingSummary();
         document.querySelectorAll("[data-rating-summary]").forEach(el => {
@@ -288,6 +313,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 el.classList.add("empty");
                 el.innerHTML = "<div>No visitor rating yet. Share your feedback on the contact page.</div>";
             }
+        });
+
+        document.querySelectorAll("[data-rating-comments]").forEach(el => {
+            el.innerHTML = renderCommentList(data.comments);
         });
     }
 
