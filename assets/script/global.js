@@ -73,7 +73,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ── Tilt on hover for cards (subtle 3D feel) ──
-    // Only apply on non-touch devices
     const hasMouse = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     if (hasMouse) {
         document.querySelectorAll("[data-tilt]").forEach(card => {
@@ -117,25 +116,21 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             setTimeout(type, deleting ? 50 : 95);
         }
-        // Small initial delay so page is ready
         setTimeout(type, 600);
     }
 
     // ── Skill bar animate on view ──
     const skillBars = document.querySelectorAll(".skill-fill");
     if (skillBars.length) {
-        // Set initial width to 0 via inline style so transition works
         skillBars.forEach(b => { b.style.width = "0"; });
 
         const barIO = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const bar = entry.target;
-                    // Read --w from inline style attribute e.g. style="--w: 85%"
                     const inlineStyle = bar.getAttribute("style") || "";
                     const match = inlineStyle.match(/--w\s*:\s*([^;]+)/);
                     const targetW = match ? match[1].trim() : getComputedStyle(bar).getPropertyValue("--w").trim();
-                    // Short delay so the element is visible before animating
                     requestAnimationFrame(() => {
                         setTimeout(() => {
                             bar.style.width = targetW;
@@ -156,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const countIO = new IntersectionObserver(entries => {
             if (entries[0].isIntersecting) {
                 let start = 0;
-                const duration = 1200; // ms
+                const duration = 1200;
                 const steps = 50;
                 const increment = target / steps;
                 const interval = duration / steps;
@@ -180,10 +175,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // ── Page transition: fade out on link click ──
+    // ── Page transition: fade out on link click (FIXED FOR MOBILE NAVIGATION) ──
     document.querySelectorAll("a[href]").forEach(a => {
         const href = a.getAttribute("href");
-        // Only internal links, not hash/mailto/tel/target=_blank
         if (
             href &&
             !href.startsWith("#") &&
@@ -193,6 +187,12 @@ document.addEventListener("DOMContentLoaded", function () {
             !a.hasAttribute("data-no-transition")
         ) {
             a.addEventListener("click", function (e) {
+                // Jika menu mobile sedang terbuka, tutup menunya terlebih dahulu sebelum transisi halaman berjalan
+                if (navigation && navigation.classList.contains("open")) {
+                    hamburger.classList.remove("open");
+                    navigation.classList.remove("open");
+                }
+                
                 e.preventDefault();
                 document.body.style.opacity = "0";
                 setTimeout(() => {
@@ -234,6 +234,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // ── Ratings System Logic ──
     async function fetchRatingSummary() {
         try {
             const response = await fetch("/api/ratings");
@@ -338,7 +339,6 @@ document.addEventListener("DOMContentLoaded", function () {
         updateRatingSummary();
     }
 
-    // ── Active link highlight ── (re-run for SPA-like feel)
     function setActiveLink() {
         const path = window.location.pathname.replace(/\/$/, "");
         const segment = path.split("/").pop() || "";

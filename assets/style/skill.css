@@ -237,7 +237,7 @@ main {
 
 .skill-fill {
     height: 100%;
-    width: 0;
+    width: var(--w, 100%);
     background: linear-gradient(90deg, var(--accent), #e74c3c, #ff6b6b);
     border-radius: 99px;
     transition: width 1.2s cubic-bezier(.4,0,.2,1);
@@ -262,8 +262,148 @@ main {
 }
 
 /* ── Responsive ── */
-@media (max-width: 640px) {
-    .skill-categories { grid-template-columns: 1fr; }
+/* ── Responsive ── */
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+    .skill-categories {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media (max-width: 900px) {
+    .skill-categories {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        padding: 40px 20px 60px;
+    }
+
+    .skills-header {
+        margin-bottom: 40px;
+    }
+
+    .skills-header h1 {
+        font-size: 2.2rem;
+    }
+
     .marquee-section::before,
-    .marquee-section::after { width: 40px; }
+    .marquee-section::after {
+        width: 40px;
+    }
+
+    .marquee-section {
+        display: none;
+    }
+
+    .skill-card {
+        padding: 22px 18px;
+    }
+
+    .skill-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .skill-card-header h2 {
+        font-size: 1.05rem;
+    }
+
+    .skill-item-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: 24px 16px 40px;
+    }
+
+    .skills-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .marquee-section {
+        display: none;
+    }
+
+    .tech-chip {
+        padding: 8px 14px;
+        gap: 8px;
+    }
+
+    .tech-chip img {
+        width: 18px;
+        height: 18px;
+    }
+
+    .tech-chip span {
+        font-size: 0.78rem;
+    }
+
+    /* Layout grid dipaksa satu kolom mutlak ke bawah */
+    .skill-categories {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .skill-card {
+        padding: 18px 14px;
+        border-radius: 14px;
+    }
+
+    .skill-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 14px;
+    }
+
+    .skill-icon {
+        width: 38px;
+        height: 38px;
+    }
+
+    .skill-card-header h2 {
+        font-size: 1rem;
+        margin-right: 0;
+    }
+
+    .skill-badge {
+        font-size: 0.65rem;
+        padding: 2px 8px;
+    }
+
+    .skill-desc {
+        font-size: 0.82rem;
+        margin-bottom: 18px;
+    }
+
+    .skill-list {
+        gap: 12px;
+    }
+
+    .skill-item-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .skill-name {
+        font-size: 0.82rem;
+        width: 100%;
+    }
+
+    .skill-level {
+        font-size: 0.68rem;
+        width: 100%;
+    }
 }
