@@ -205,6 +205,38 @@ main {
     transition: transform 0.2s ease, background 0.2s ease;
 }
 
+.rating-fields {
+    display: grid;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.rating-fields label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--text);
+}
+
+.rating-fields input,
+.rating-fields textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    color: var(--text);
+    font-size: 0.95rem;
+    resize: vertical;
+}
+
+.rating-fields input:focus,
+.rating-fields textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
 .rating-submit:hover {
     transform: translateY(-1px);
     background: #a93226;

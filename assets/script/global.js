@@ -246,12 +246,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    async function postRating(value) {
+    async function postRating(value, email, comment) {
         try {
             const response = await fetch("/api/ratings", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ rating: value })
+                body: JSON.stringify({ rating: value, email, comment })
             });
             if (!response.ok) {
                 const errorData = await response.json();
@@ -297,6 +297,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const ratingStars = ratingWidget.querySelectorAll("[data-rating-value]");
         const ratingSubmit = ratingWidget.querySelector(".rating-submit");
         const ratingHelp = ratingWidget.querySelector(".rating-help-text");
+        const ratingEmail = ratingWidget.querySelector(".rating-email");
+        const ratingComment = ratingWidget.querySelector(".rating-comment");
 
         function updateStarSelection() {
             ratingStars.forEach(star => {
@@ -304,8 +306,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 star.classList.toggle("active", value <= selectedRating);
             });
             ratingHelp.textContent = selectedRating > 0
-                ? `You selected ${selectedRating} star${selectedRating === 1 ? "" : "s"}. Click submit to save.`
-                : "Choose a score from 1 to 5 and share your opinion.";
+                ? `You selected ${selectedRating} star${selectedRating === 1 ? "" : "s"}. Fill email and comment, then submit.`
+                : "Choose a score from 1 to 5, then add your email and comment.";
         }
 
         ratingStars.forEach(star => {
@@ -317,11 +319,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (ratingSubmit) {
             ratingSubmit.addEventListener("click", async () => {
+                const emailValue = ratingEmail ? ratingEmail.value.trim() : "";
+                const commentValue = ratingComment ? ratingComment.value.trim() : "";
+
                 if (!selectedRating) {
                     ratingHelp.textContent = "Please select a rating before submitting.";
                     return;
                 }
-                const data = await postRating(selectedRating);
+                if (!emailValue) {
+                    ratingHelp.textContent = "Please enter your email before submitting.";
+                    return;
+                }
+                if (!/^\S+@\S+\.\S+$/.test(emailValue)) {
+                    ratingHelp.textContent = "Please enter a valid email address.";
+                    return;
+                }
+                if (!commentValue) {
+                    ratingHelp.textContent = "Please add a comment to complete your feedback.";
+                    return;
+                }
+
+                const data = await postRating(selectedRating, emailValue, commentValue);
                 if (!data) {
                     ratingHelp.textContent = "An error occurred. Please try again later.";
                     return;

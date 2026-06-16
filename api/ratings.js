@@ -52,7 +52,7 @@ async function fetchRemoteRatings() {
   return { count, sum, last, average };
 }
 
-async function postRemoteRating(rating) {
+async function postRemoteRating(payload) {
   if (!useRemoteDb) {
     throw new Error("SUPABASE_URL and SUPABASE_KEY are required.");
   }
@@ -66,7 +66,7 @@ async function postRemoteRating(rating) {
       "Content-Type": "application/json",
       "Prefer": "return=representation" // Mengembalikan data yang diinsert
     },
-    body: JSON.stringify({ rating })
+    body: JSON.stringify(payload)
   });
 
   if (!response.ok) {
@@ -93,13 +93,21 @@ module.exports = async (req, res) => {
     if (req.method === "POST") {
       const body = await parseRequestBody(req);
       const rating = Number(body.rating);
+      const email = typeof body.email === "string" ? body.email.trim() : "";
+      const comment = typeof body.comment === "string" ? body.comment.trim() : "";
 
       // PERBAIKAN VALIDASI: Memastikan input adalah angka valid antara 1 - 5
       if (Number.isNaN(rating) || rating < 1 || rating > 5) {
         return res.status(400).json({ error: "Rating must be a number between 1 and 5." });
       }
+      if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+        return res.status(400).json({ error: "A valid email address is required." });
+      }
+      if (!comment || comment.length < 3) {
+        return res.status(400).json({ error: "Please add a short comment with your rating." });
+      }
 
-      const savedData = await postRemoteRating(rating);
+      const savedData = await postRemoteRating({ rating, email, comment });
       
       // Mengembalikan data asli dari DB agar client tahu ID atau created_at nya
       return res.status(200).json({ 
