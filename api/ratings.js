@@ -30,7 +30,7 @@ async function fetchRemoteRatings() {
 
   // CATATAN: Jika data sudah sangat banyak, disarankan mengganti query ini 
   // dengan Supabase RPC (Stored Procedure) untuk menghitung AVG dan COUNT di database.
-  const url = `${REMOTE_DB_URL}/rest/v1/${REMOTE_TABLE}?select=rating,email,comment,created_at&order=created_at.desc&limit=5`;
+  const url = `${REMOTE_DB_URL}/rest/v1/${REMOTE_TABLE}?select=rating,email,comment,created_at&order=created_at.desc`;
   const response = await fetch(url, {
     headers: {
       apikey: REMOTE_DB_KEY,
